@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+
+        <record id="view_res_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='login']" position="after">
+                    <group>
+                        <field name="technician"/>
+                    </group>
+                </xpath>
+                <!--                <xpath expr="//field[@name='payment_term_id']" position="after">-->
+                <!--                     <field name="age"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='date_order']" position="before">-->
+                <!--                    <field name="payment_method"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='validity_date']" position="before">-->
+                <!--                    <field name="order_item"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='payment_term_id']" position="replace">-->
+                <!--                    <field name="place"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='place']" position="attributes">-->
+                <!--                    <attribute name="required">1</attribute>-->
+
+
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='age']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+
+                <!--                </xpath>-->
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

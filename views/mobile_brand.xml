@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="view_product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_ok']" position="after">
+                    <group>
+                        <field name="in_warranty"/>
+                    </group>
+                </xpath>
+                <!--                <xpath expr="//field[@name='payment_term_id']" position="after">-->
+                <!--                     <field name="age"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='date_order']" position="before">-->
+                <!--                    <field name="payment_method"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='validity_date']" position="before">-->
+                <!--                    <field name="order_item"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='payment_term_id']" position="replace">-->
+                <!--                    <field name="place"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='place']" position="attributes">-->
+                <!--                    <attribute name="required">1</attribute>-->
+
+
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='age']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+
+                <!--                </xpath>-->
+
+            </field>
+        </record>
+    </data>
+</odoo>

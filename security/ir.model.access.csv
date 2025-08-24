@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mobile_service.access_mobile_service_line,access_mobile_service_line,mobile_service.model_mobile_service_line,base.group_user,1,1,1,1
+mobile_service.access_mobile_parts_line,access_mobile_parts_line,mobile_service.model_mobile_parts_line,base.group_user,1,1,1,1
+mobile_service.access_mobile_service,access_mobile_service,mobile_service.model_mobile_service,base.group_user,1,1,1,1
+mobile_service.access_service_print_wizard,access_service_print_wizard,mobile_service.model_service_print_wizard,base.group_user,1,1,1,1

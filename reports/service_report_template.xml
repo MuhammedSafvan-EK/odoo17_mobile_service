@@ -1,0 +1,61 @@
+<odoo>
+    <template id="service_report_template" name="Service Report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: Arial, sans-serif; padding: 20px;">
+                    <!-- Report Title -->
+                    <h2 style="text-align: center; margin-bottom: 20px; margin-top: 80px; color: #444;">
+                        Service Ticket
+                    </h2>
+                    <!--style divider-->
+                    <hr style="border: none; height: 1px; background-color: #555; margin: 20px 0;"/>
+                    <!-- Customer & Device Info --><!-- Two-column layout -->
+                    <t t-foreach="docs" t-as="doc">
+                        <div style="width: 100%; margin-top: 10px;">
+                            <!-- Left Column -->
+                            <div style="float: left;">
+                                <div style="margin-bottom:10px;">
+                                    <strong>Service Number :</strong>
+                                    <span t-esc="doc.sequence_num"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Customer Name :</strong>
+                                    <span t-esc="doc.customer_name.name"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Contact Number :</strong>
+                                    <span t-esc="doc.number"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Brand :</strong>
+                                    <span t-esc="doc.in_warranty.name"/>
+                                </div>
+                            </div>
+                            <!-- Right Column -->
+                            <div style="margin-left:420px;">
+                                <div style="margin-bottom:10px;">
+                                    <strong>IMEI :</strong>
+                                    <span t-esc="doc.imei_number"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Technician :</strong>
+                                    <span t-esc="doc.is_technician.name"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Requested Date :</strong>
+                                    <span t-esc="doc.req_date"/>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <strong>Return Date :</strong>
+                                    <span t-esc="doc.return_date"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

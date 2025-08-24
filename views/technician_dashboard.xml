@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <!-- Kanban View -->
+        <record id="view_mobile_service_kanban" model="ir.ui.view">
+            <field name="name">mobile.service.kanban</field>
+            <field name="model">mobile.service</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile_service" default_group_by="status_bar">
+                    <field name="sequence_num"/>
+                    <field name="customer_name"/>
+                    <field name="status_bar"/>
+                    <field name="req_date"/>
+                    <field name="return_date"/>
+                    <field name="is_technician"/>
+                    <field name="total_amount"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_card">
+                                <div><strong t-esc="record.sequence_num.value"/></div>
+                                <div>Customer: <span t-esc="record.customer_name.value"/></div>
+                                <div>Technician: <span t-esc="record.is_technician.value"/></div>
+                                <div>Status: <span t-esc="record.status_bar.value"/></div>
+                                <div>Requested: <span t-esc="record.req_date.value"/></div>
+                                <div>Return: <span t-esc="record.return_date.value"/></div>
+                                <div>Total: ₹<span t-esc="record.total_amount.value"/></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Graph View -->
+        <record id="view_mobile_service_graph" model="ir.ui.view">
+            <field name="name">mobile.service.graph</field>
+            <field name="model">mobile.service</field>
+            <field name="arch" type="xml">
+                <graph string="Service Count by Status" type="pie">
+                    <field name="status_bar" type="row"/>
+                    <field name="id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_technician_dashboard" model="ir.actions.act_window">
+            <field name="name">Technician Dashboard</field>
+            <field name="res_model">mobile.service</field>
+            <field name="view_mode">kanban,graph,tree,form</field>
+            <!-- For now, show all records; change to [('is_technician', '=', uid)] if filtering needed -->
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_technician_dashboard"
+                  name="Technician Dashboard"
+                  parent="service_menu_2_list"
+                  action="action_technician_dashboard"
+                  sequence="5"/>
+    </data>
+</odoo>

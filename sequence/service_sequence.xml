@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="seq_mobile_service" model="ir.sequence">
+            <field name="name">Mobile Service ID</field>
+            <field name="code">mobile.service</field>
+            <field name="prefix">MSRV/</field>
+            <field name="padding">3</field>
+            <field name="number_next">0</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
+

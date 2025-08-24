@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="action_service_report" model="ir.actions.report"> <!--#action_service_report must be similar to the service report record id-->
+            <field name="name">Service Report</field>
+            <field name="model">mobile.service</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mobile_service.service_report_template</field> <!--report_template id,call with name,formate= (module_name.template_id)-->
+            <field name="report_file">mobile_service.service_report_template</field>
+        </record>
+    </data>
+</odoo>

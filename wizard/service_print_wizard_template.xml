@@ -1,0 +1,34 @@
+<odoo>
+    <record id="service_print_wizard_view_form" model="ir.ui.view">
+        <field name="name">service.print.wizard.form</field>
+        <field name="model">service.print.wizard</field>
+        <field name="arch" type="xml">
+            <form string="What do you want to do?">
+                <sheet>
+                    <group>
+                        <div class="btn-group" role="group" aria-label="Basic example" >
+                            <button name="action_print" type="object" class="btn btn-info">
+                                <i class="fa fa-print">Print</i>
+                            </button>
+                            <button name="action_download" type="object" class="btn btn-info">
+                                <i class="fa fa-download">Download</i>
+                            </button>
+                            <button name="action_open" type="object" class="btn btn-info">
+                                <i class="fa fa-folder-open">Open</i>
+                            </button>
+                        </div>
+                        <footer>
+                            <button string="Cancel" special="cancel" class="btn-secondary"/>
+                        </footer>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_mobile_service_print_wizard" model="ir.actions.act_window">
+        <field name="name">Print Ticket Options</field>
+        <field name="res_model">service.print.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

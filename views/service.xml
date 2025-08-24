@@ -1,0 +1,229 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <!-- ========== Tree View (List View) ========== -->
+        <record model="ir.ui.view"
+                id="mobile_service_view">  <!-- record id and menu action (action="") are similar) - same _name = ""!-->
+            <field name="name">service_list</field>
+            <field name="model">mobile.service</field>
+            <field name="arch" type="xml">  <!--XML structure for the view.-->
+                <tree>
+                    <!-- Columns shown in list view -->
+                    <field name="sequence_num"/>
+                    <field name="customer_name"/>
+                    <field name="number"/>
+                    <field name="imei_number"/>
+                    <field name="in_warranty" string="Mobile"/>
+                    <field name="is_technician"/>
+                    <field name="status_bar"/>
+                    <field name="invoice_payment_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ========== Form View ========== -->
+        <record model="ir.ui.view" id="mobile_service_form_view">
+            <field name="name">service_form</field>
+            <field name="model">mobile.service</field>
+            <field name="arch" type="xml">
+                <!-- set form full width using class -->
+                <form class="oe_form_full_width">
+                    <header>
+
+                        <!-- Action Buttons -->
+                        <button name="action_assign_technician"
+                                string="Assign Technician"
+                                type="object"
+                                class="btn btn-warning" invisible="status_bar!='draft'"/>
+                        <button name="action_print_ticket"
+                                string="Print Ticket"
+                                type="object"
+                                class="btn btn-success" invisible="status_bar=='completed' or status_bar=='draft'"/>
+                        <button name="action_in_progress"
+                                string="In Progress"
+                                type="object"
+                                class="btn btn-info"
+                                invisible="status_bar=='in_progress' or status_bar=='completed' or status_bar=='draft'"/>
+                        <button name="action_completed"
+                                string="Completed"
+                                type="object"
+                                class="btn btn-success" invisible="status_bar=='draft'"/>
+                        <button name="action_returned"
+                                string="RETURNED"
+                                type="object"
+                                class="btn-primary"
+                                invisible="status_bar=='in_progress' or status_bar=='completed' or status_bar=='draft'"/>
+                        <button name="action_generate_invoice"
+                                string="GENERATE INVOICE"
+                                type="object"
+                                class="btn-primary"
+                                invisible="status_bar!='completed'"/>
+
+                        <!-- Statusbar Widget -->
+                        <field name="status_bar" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="o_form_sheet_full">
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0;">
+                                <!-- Company Logo -->
+                                <div>
+                                    <field name="company_logo" widget="image"
+                                           options="{'size': [150, 150]}" readonly="1"
+                                           style="border-radius: 10px;"/>
+                                </div>
+                                <!-- Company Details (Right side - stacked line-by-line) -->
+                                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                                    <!-- Company Name -->
+                                    <field name="company_id" nolabel="1" readonly="1"
+                                           style="font-size: 18px; font-weight: bold; color: #4b3b8f; margin-bottom: 6px;"/>
+                                    <!-- Contact Number -->
+                                    <field name="contact_number" nolabel="1" readonly="1"
+                                           style="margin-bottom: 4px;"/>
+                                    <!-- Email -->
+                                    <field name="email" nolabel="1" readonly="1"/>
+                                    <!-- location -->
+                                    <field name="location" nolabel="1" readonly="1"/>
+                                </div>
+                            </div>
+
+                            <!-- Stylish Divider -->
+                            <hr style="margin: 20px 0; border: none; height: 4px;
+                            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7));"/>
+
+                            <group>
+                                <!-- Left Column -->
+                                <group>
+                                    <field name="sequence_num"/>
+                                    <field name="service_type" widget="radio"/>
+
+                                    <field name="customer_name" placeholder="Customer or Create New Customer"/>
+                                    <field name="number" placeholder="Contact Number"/>
+                                    <field name="customer_email" placeholder="Email"/>
+                                    <field name="customer_address" placeholder="Customer Address"/>
+                                </group>
+
+                                <!-- Right Column -->
+                                <group>
+                                    <field name="in_warranty" placeholder="Model Name"/>
+                                    <field name="req_date"/>
+                                    <field name="return_date" placeholder="Select a Return Date"/>
+                                    <field name="is_technician" placeholder="Select a Technician"/>
+                                </group>
+                            </group>
+                        </div>
+                        <!--notebook session-->
+                        <notebook>
+                            <!--page1-->
+                            <page name="description" string="Description">
+                                <group>
+                                    <group>
+                                        <field name="imei_number"/>
+                                    </group>
+                                    <group>
+                                        <field name="internal_note"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!-- page2-->
+                            <page name="service" string="Service">
+                                <field name="service_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="category"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!-- page3-->
+                            <page name="parts_used" string="Parts Used">
+                                <field name="parts_used_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                        <field name="unit_price"/>
+                                        <field name="on_hand_qty"/>
+                                        <field name="subtotal"/>
+                                    </tree>
+                                </field>
+                                <div class="mt16" style="text-align: right; padding: 10px;">
+                                    <div style="text-align: right; font-weight: bold;color: #888;">
+                                        Grand Total:
+                                        <field name="total_amount" readonly="1" class="oe_inline" style="color: #444;"/>
+                                    </div>
+                                </div>
+                            </page>
+                            <!-- page4-->
+                            <page name="media" string="Media">
+                                <group>
+                                    <field name="media_document" widget="many2many_binary"/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <!-- Chatter Section -->
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="activity_ids" widget="mail_activity"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--search view-->
+        <record model="ir.ui.view" id="mobile_service_search_view">
+            <field name="name">mobile.service.search</field>
+            <field name="model">mobile.service</field>
+            <field name="arch" type="xml">  <!--XML structure for the view.-->
+                <search>
+                    <field name="sequence_num"/>
+                    <field name="customer_name"/>
+                    <field name="number"/>
+                    <field name="imei_number"/>
+                    <field name="in_warranty"/>
+                    <field name="is_technician"/>
+                    <field name="status_bar"/>
+                    <field name="invoice_payment_status"/>
+
+                    <!--filter session-->
+                    <filter string="Paid" name="invoice_payment_paid"
+                            domain="[('invoice_payment_status', '=', 'paid')]"/>
+                    <filter string="Not Paid" name="invoice_payment_not_paid"
+                            domain="[('invoice_payment_status', '=', 'not_paid')]"/>
+
+
+                    <!--group session-->
+                    <group expand="1" string="Group By">
+                        <filter string="Technician" name="group_by_technician" context="{'group_by':'is_technician'}"/>
+                        <filter string="Mobile" name="group_by_mobile" context="{'group_by':'in_warranty'}"/>
+                        <filter string="Customers" name="group_by_customer_name" context="{'group_by':'customer_name'}"/>
+                        <filter string="Status" name="group_by_status" context="{'group_by':'status_bar'}"/>
+                        <filter string="Payment Status" name="group_by_payment_status" context="{'group_by':'invoice_payment_status'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="action_mobile_service">
+            <field name="name">Service Request</field>
+            <field name="res_model">mobile.service</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="Mobile Service" id="mobile_service.menu_root"/>
+
+
+            <!-- actions&submenu -->
+
+            <menuitem name="Service Request" id="service_menu_1_list" parent="mobile_service.menu_root"
+                      action="action_mobile_service"/>
+            <menuitem name="Configuration" id="service_menu_2_list" parent="mobile_service.menu_root"
+                      action="action_mobile_service"/>
+            <menuitem name="Products" id="service_menu_3_list" parent="service_menu_2_list"
+                      action="sale.product_template_action"/>
+        </data>
+    </odoo>

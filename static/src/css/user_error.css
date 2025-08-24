@@ -1,0 +1,5 @@
+.o_error_dialog .modal-header,
+.o_error_dialog .modal-body {
+    color: red !important;
+    font-weight: bold;
+}
